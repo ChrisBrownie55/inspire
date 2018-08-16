@@ -1,54 +1,53 @@
-
-
 const todoApi = axios.create({
-	baseURL: 'https://bcw-sandbox.herokuapp.com/api/YOURNAME/todos/',
-	timeout: 3000
+  baseURL: 'https://bcw-sandbox.herokuapp.com/api/ChrisBrownie55/todos/',
+  timeout: 3000
 });
 
-function logError(e) {
-	console.log(e)
+function logError(error) {
+  console.error(error);
 }
 
-
-let todoList = []
+let todoList = [];
 
 export default class TodoService {
+  getTodos() {
+    return todoApi
+      .get('')
+      .then(
+        res => (
+          console.log('getTodos:', res.data),
+          (todoList = res.data.data),
+          res.data
+        )
+      )
+      .catch(logError);
+  }
 
-	getTodos(draw) {
-		console.log("Getting the Todo List")
-		todoApi.get('')
-			.then((res) => { // <-- WHY IS THIS IMPORTANT????
+  addTodo(todo) {
+    return todoApi
+      .post('', todo)
+      .then(res => (console.log('addTodo:', res.data), res.data))
+      .catch(logError);
+  }
 
-			})
-			.catch(logError)
-	}
+  toggleTodoStatus(todoId) {
+    const todo = todoList.find(todo => todo._id === todoId);
+    if (!todo) {
+      return;
+    }
 
-	addTodo(todo) {
-		// WHAT IS THIS FOR???
-		todoApi.post('', todo)
-			.then(function (res) { // <-- WHAT DO YOU DO AFTER CREATING A NEW TODO?
+    return todoApi
+      .put(todoId, {
+        ...todo,
+        completed: !todo.completed
+      })
+      .then(res => (console.log('toggleTodoStatus:', res.data), res.data))
+      .catch(logError);
+  }
 
-			})
-			.catch(logError)
-	}
-
-	toggleTodoStatus(todoId) {
-		// MAKE SURE WE THINK THIS ONE THROUGH
-		//STEP 1: Find the todo by its index **HINT** todoList
-
-		var todo = {} ///MODIFY THIS LINE
-
-		//STEP 2: Change the completed flag to the opposite of what is is **HINT** todo.completed = !todo.completed
-		todoApi.put(todoId, todo)
-			.then(function (res) {
-				//DO YOU WANT TO DO ANYTHING WITH THIS?
-			})
-			.catch(logError)
-	}
-
-	removeTodo() {
-		// Umm this one is on you to write.... The method is a DELETE
-
-	}
-
+  removeTodo(todoId) {
+    return todoApi
+      .delete(todoId)
+      .then(res => (console.log('removeTodo:', res.data), res.data));
+  }
 }
