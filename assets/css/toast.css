@@ -1,0 +1,40 @@
+#toasts {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+toast-message {
+  animation: toast-fadeIn 0.25s forwards;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 15rem;
+  padding: 1rem 2rem;
+  border-radius: 0.15rem;
+  margin-bottom: 1rem;
+}
+
+toast-message[closing] {
+  animation: toast-fadeOut 0.25s forwards;
+}
+
+@keyframes toast-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

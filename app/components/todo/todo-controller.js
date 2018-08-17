@@ -46,6 +46,11 @@ export default class TodoController {
   }
 
   async addTodo(input) {
+    if (input.value === '') {
+      const toasts = document.getElementById('toasts');
+      toasts.innerHTML += `<toast-message>You cannot create an empty Todo.</toast-message>`;
+      return;
+    }
     await todoService.addTodo({
       description: input.value
     });

@@ -120,6 +120,9 @@ main > * {
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 0.85rem;
 }
+.todo-header {
+  margin-top: 0;
+}
 #weather {
   display: flex;
   flex-direction: row;
@@ -155,19 +158,39 @@ main > * {
   color: red;
 }
 
-.add-todo {
+.todo-input {
   margin-top: 1rem;
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
   transition: color 0.15s;
   padding: 0;
   margin: 0.75rem 0 0;
 }
-.add-todo:active,
-.add-todo:hover {
+.todo-input:focus {
   color: white;
+  outline: none;
+}
+.add-todo {
+  border: none;
+  background: none;
+  background-color: #ccc;
+  color: black;
+  font-size: 1.25rem;
+  border-radius: 0.05rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0 0 auto;
+  transition: background-color 0.2s;
+}
+
+.add-todo[disabled] {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .options > summary {
