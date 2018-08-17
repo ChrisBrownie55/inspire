@@ -9,6 +9,7 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   margin: 0;
+  overflow: hidden;
 }
 
 #app {
@@ -31,6 +32,11 @@ body {
   opacity: 0;
 }
 
+#background-image-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
 #background-image-container > img {
   position: fixed;
   top: -4px;
@@ -67,15 +73,18 @@ footer {
   align-items: flex-end;
 }
 main {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 50%;
+  width: 100%;
   transform: translateY(-50%);
 }
 main > * {
   text-align: center;
 }
-
 .clock {
   font-size: 4.5rem;
   font-weight: 400;
@@ -85,40 +94,132 @@ main > * {
   margin: 0;
   font-weight: 300;
 }
-
 .quote {
-  max-width: 35rem;
+  max-width: 25rem;
+  width: 45%;
   position: relative;
+  margin: 0 0 0.5rem;
 }
 .quote::after {
   content: ' – ' attr(data-author);
   position: absolute;
-  right: 0;
-  transform: translateX(0);
+  left: 0;
+  bottom: 0;
   opacity: 0;
-  transition: transform 0.35s, opacity 0.35s;
   user-select: none;
+  transform: translate(0, 100%);
+  transition: transform 0.35s, opacity 0.35s;
 }
 .quote:hover::after {
   opacity: 1;
-  transform: translateX(calc(100% + 1rem));
+  transform: translate(1rem, 100%);
 }
-
 #todo-container {
   border-radius: 0.2rem;
   padding: 0.8rem;
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 0.85rem;
 }
-#todo-container * {
-  margin: 0;
-}
-
 #weather {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+}
+.wi {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+.weather-container > * {
+  margin: 0;
+}
+.temperature {
+  font-weight: 500;
+}
+.location {
+  font-weight: 300;
 }
 
-#weather > * {
-  margin: 0;
+.material.checkbox {
+  margin-bottom: 0.25rem;
+  margin-right: 1rem;
+}
+
+.delete-button {
+  position: absolute;
+  right: -0.5rem;
+  top: 50%;
+  transform: translate(100%, -50%);
+}
+.delete-button:hover {
+  transition: color 0.2s;
+  color: red;
+}
+
+.add-todo {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: color 0.15s;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+.add-todo:active,
+.add-todo:hover {
+  color: white;
+}
+
+.options > summary {
+  list-style-image: url(../cog.svg);
+  cursor: pointer;
+  padding: 0.1rem;
+}
+.options > summary:focus {
+  outline: none;
+}
+.options > summary::-webkit-details-marker {
+  font-size: 1.3rem;
+  transform: translateY(0.1rem);
+  background: url(../cog.svg);
+  color: transparent;
+  transition: transform 0.2s;
+  transform-origin: center;
+}
+.options[open] > summary {
+  margin-bottom: 0.65rem;
+}
+.options[open] > summary::-webkit-details-marker {
+  transform: translateY(0.1rem) rotate(45deg);
+}
+
+.options {
+  border-radius: 0.2rem;
+  padding: 0.8rem;
+}
+.options[open] {
+  transition: background-color 0.2s;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 800px) {
+  html {
+    font-size: 18px;
+  }
+  #todo-container {
+    margin-bottom: 3rem;
+  }
+  footer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .quote {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+  main {
+    top: 40%;
+  }
 }

@@ -4,9 +4,13 @@ let qs = new QuoteService();
 
 const quoteContainer = document.getElementById('quote');
 
+const truncate = (string, length) =>
+  string.length > length ? string.slice(0, length - 3) + '...' : string;
+
 function draw(quoteData) {
-  quoteContainer.textContent = `"${quoteData.quote}"`;
+  quoteContainer.innerHTML = `"${truncate(quoteData.quote, 100)}"`;
   quoteContainer.setAttribute('data-author', quoteData.author);
+  quoteContainer.setAttribute('title', quoteData.quote);
 }
 
 export default class QuoteController {

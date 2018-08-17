@@ -1,6 +1,5 @@
 const url = '//bcw-getter.herokuapp.com/?url=';
-const url2 =
-  'http://www.splashbase.co/api/v1/images/search?query=city&commit=Search';
+const url2 = 'http://www.splashbase.co/api/v1/images/search?query=city';
 const apiUrl = url + encodeURIComponent(url2);
 
 const imgApi = axios.create({

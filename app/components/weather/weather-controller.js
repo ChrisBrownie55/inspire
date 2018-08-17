@@ -20,7 +20,7 @@ async function updateWeather() {
 
   weatherContainer.innerHTML = `
 		<i class='wi ${weatherIconClass}'></i>
-		<div class='flex flex-column'>
+		<div class='weather-container'>
 			<h4 class='temperature'>${parseFloat(convertedTemp)}° ${
     isFahrenheit ? 'F' : 'C'
   }</h4>

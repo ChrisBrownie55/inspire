@@ -27,7 +27,7 @@ class App {
     this.updateTime = this.updateTime.bind(this);
     this.updateTime();
 
-    setInterval(this.updateTime, 2000);
+    setInterval(this.updateTime, 5000);
   }
 
   updateTime() {
