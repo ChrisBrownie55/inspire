@@ -17,7 +17,12 @@ class App {
 
     document.getElementById('name').textContent =
       localStorage.getItem('name') || 'YOUR NAME';
-    console.log(localStorage.getItem('name'));
+
+    document.getElementById('fahrenheit').checked =
+      localStorage.getItem('fahrenheit') === 'true';
+
+    document.getElementById('24hr').checked =
+      localStorage.getItem('24hr') === 'true';
 
     this.updateTime = this.updateTime.bind(this);
     this.updateTime();
@@ -44,6 +49,15 @@ class App {
 
   saveName(name) {
     localStorage.setItem('name', name);
+  }
+
+  toggleFahrenheit({ checked }) {
+    localStorage.setItem('fahrenheit', checked);
+    this.controllers.weather.getWeather();
+  }
+  toggleTimeFormat({ checked }) {
+    localStorage.setItem('24hr', checked);
+    this.updateTime();
   }
 }
 

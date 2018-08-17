@@ -27,6 +27,11 @@ function draw(todos) {
 					onchange='app.controllers.todos.toggleTodoStatus("${todo._id}")'
 				/>
 				<label for='todo-${todo._id}'>${todo.description}</label>
+				<i
+					class='fas fa-times delete-button'
+					onclick='app.controllers.todos.removeTodo("${todo._id}")'
+					style='cursor: pointer;'
+				></i>
 			</article>`
       )
     )
@@ -40,10 +45,11 @@ export default class TodoController {
     getTodos();
   }
 
-  async addTodo(text) {
+  async addTodo(input) {
     await todoService.addTodo({
-      description: text
+      description: input.value
     });
+    input.value = '';
     getTodos();
   }
 

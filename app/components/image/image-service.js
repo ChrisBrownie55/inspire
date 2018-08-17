@@ -10,11 +10,13 @@ const imgApi = axios.create({
 
 export default class ImageService {
   getImage() {
-    return imgApi().then(
-      res => (
-        console.log('getImage:', res.data),
-        res.data.images[Math.floor(Math.random() * res.data.images.length)]
+    return imgApi()
+      .then(
+        res => (
+          console.log('getImage:', res.data),
+          res.data.images[Math.floor(Math.random() * res.data.images.length)]
+        )
       )
-    );
+      .catch(error => (console.error(error), this.getImage()));
   }
 }

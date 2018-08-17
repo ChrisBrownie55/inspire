@@ -5,49 +5,57 @@
 	<meta charset="UTF-8">
 	<title>Inspire</title>
 	<link rel="stylesheet" href="assets/css/material-checkbox.css" />
+	<link rel="stylesheet" href="assets/css/loader.css">
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css" />
 </head>
 
 <body id="body">
-	<div id='background-image-container'></div>
+	<div id='app' class='loading'>
+		<div id='background-image-container'></div>
 
-	<aside id="weather">
-	</aside>
+		<header>
+			<details class='options'>
+				<summary><i class='fas fa-cog'></i> Settings</summary>
+				<div class='material checkbox'>
+					<input id='24hr' type='checkbox' onchange='app.toggleTimeFormat(this)' />
+					<label for='24hr'>24 HR Format</label>
+				</div>
+				<div class='material checkbox'>
+					<input id='fahrenheit' type='checkbox' onchange='app.toggleFahrenheit(this)' />
+					<label for='fahrenheit'>Fahrenheit</label>
+				</div>
+			</details>
+			<aside id="weather">
+			</aside>
+		</header>
 
-	<main class='main'>
-		<h1 id='time'>0:00 AM</h1>
-		<h2>
-			Good
-			<span id='time-of-day'>morning</span>,
-			<span id='name' contenteditable oninput='app.saveName(event.target.textContent)'></span>.
-		</h2>
-	</main>
+		<main>
+			<h1 class='clock' id='time'>0:00 AM</h1>
+			<h2 class='message'>
+				Good
+				<span id='time-of-day'>morning</span>,
+				<span id='name' contenteditable oninput='app.saveName(event.target.textContent)'></span>.
+			</h2>
+		</main>
 
-	<footer id="quote">
-	</footer>
+		<footer>
+			<p id="quote" class='quote'>
+			</p>
+			<aside id="todo-container">
+				<p class='todo-header'><span id='todo-count'>0</span> to do</p>
+				<section id='todos'></section>
+				<button class='add-todo' onclick='app.controllers.todos.addTodo(document.getElementById("todo-input"))'>
+					New Todo
+				</button>
+				<input type='text' id='todo-input' class='todo-input' />
+			</aside>
+		</footer>
+	</div>
+	<div class='loader'></div>
 
-	<aside id="todo-container">
-		<p class='todo-header'><span id='todo-count'>0</span> to do</p>
-		<section id='todos'></section>
-		<button class='add-todo' onclick='app.controllers.todos.addTodo(document.getElementById("todo-input").value)'>
-			New Todo
-		</button>
-		<input type='text' id='todo-input' class='todo-input' />
-	</aside>
-
-	<aside class='options'>
-		<p>Options:</p>
-		<div class='material checkbox'>
-			<input id='24hr' type='checkbox' onchange='app.updateTime()' />
-			<label for='24hr'>24 HR Format</label>
-		</div>
-		<div class='material checkbox'>
-			<input id='fahrenheit' type='checkbox' onchange='app.controllers.weather.getWeather()' />
-			<label for='fahrenheit'>Fahrenheit</label>
-		</div>
-	</aside>
-
+	<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+	 crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 	<script type='module' src="app/main.js"></script>
 </body>

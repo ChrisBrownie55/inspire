@@ -5,6 +5,7 @@ const imageService = new ImageService();
 const backgroundImageContainer = document.getElementById(
   'background-image-container'
 );
+const app = document.getElementById('app');
 
 function removeAllChildren(node) {
   while (node.firstChild) {
@@ -19,6 +20,7 @@ function draw(imageData) {
   image.onload = () => {
     removeAllChildren(backgroundImageContainer);
     backgroundImageContainer.appendChild(image);
+    app.classList.remove('loading');
   };
   image.src = imageData.url;
 

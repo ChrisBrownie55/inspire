@@ -27,6 +27,9 @@
 .material.checkbox input[type='checkbox']:checked {
   background-color: #00b7ff;
 }
+.material.checkbox.todo input[type='checkbox']:checked + label {
+  text-decoration: line-through;
+}
 .material.checkbox input[type='checkbox']:checked + label::before {
   background-color: #00b7ff;
   border-color: #00b7ff;

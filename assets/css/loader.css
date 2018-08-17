@@ -1,0 +1,21 @@
+.loader {
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+}
+.loader {
+  margin: 60px auto;
+  position: relative;
+  border: 0.5rem solid rgba(255, 255, 255, 0.3);
+  border-left: 0.5rem solid #ffffff;
+  animation: spinner 0.9s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  will-change: transform;
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

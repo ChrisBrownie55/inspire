@@ -36,11 +36,11 @@ export default class WeatherService {
 
   getWeather() {
     const weather = localStorage.getItem('weather');
-    const hourInMilliseconds = 1000 * 60 * 60;
+    const halfHourInMilliseconds = (1000 * 60 * 60) / 2;
     if (
       weather &&
       weather.time &&
-      Date.now() - weather.time < hourInMilliseconds
+      Date.now() - weather.time < halfHourInMilliseconds
     ) {
       return weather.data;
     }
