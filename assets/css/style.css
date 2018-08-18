@@ -119,6 +119,7 @@ main > * {
   padding: 0.8rem;
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 0.85rem;
+  width: 20rem;
 }
 .todo-header {
   margin-top: 0;
@@ -144,7 +145,7 @@ main > * {
 
 .material.checkbox {
   margin-bottom: 0.25rem;
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .delete-button {
@@ -165,7 +166,8 @@ main > * {
   color: rgba(255, 255, 255, 0.3);
   transition: color 0.15s;
   padding: 0;
-  margin: 0.75rem 0 0;
+  margin: 0.75rem 0 0 0.2rem;
+  width: calc(100% - 2.2rem);
 }
 .todo-input:focus {
   color: white;
@@ -187,6 +189,7 @@ main > * {
   align-items: center;
   margin: auto 0 0 auto;
   transition: background-color 0.2s;
+  line-height: 1.6rem;
 }
 
 .add-todo[disabled] {

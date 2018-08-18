@@ -7,10 +7,20 @@ const quoteContainer = document.getElementById('quote');
 const truncate = (string, length) =>
   string.length > length ? string.slice(0, length - 3) + '...' : string;
 
+function convertHtmlEntityToString(html) {
+  const domNode = document.createElement('div');
+  domNode.innerHTML = html;
+  return domNode.textContent;
+}
+
 function draw(quoteData) {
   quoteContainer.innerHTML = `"${truncate(quoteData.quote, 100)}"`;
   quoteContainer.setAttribute('data-author', quoteData.author);
-  quoteContainer.setAttribute('title', quoteData.quote);
+
+  quoteContainer.setAttribute(
+    'title',
+    convertHtmlEntityToString(quoteData.quote)
+  );
 }
 
 export default class QuoteController {

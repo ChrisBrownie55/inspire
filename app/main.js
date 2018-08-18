@@ -4,7 +4,9 @@ import QuoteController from './components/quote/quote-controller.js';
 import ImageController from './components/image/image-controller.js';
 import './components/toast-message.js';
 
-// HEY WHERE ARE ALL OF YOUR CONTROLLERS??
+const getTimeOfDay = hour =>
+  hour < 12 ? 'morning' : hour < 5 ? 'afternoon' : 'evening';
+
 class App {
   constructor() {
     this.controllers = {
@@ -30,6 +32,15 @@ class App {
 
     setInterval(this.updateTime, 5000);
     this.addTodo = document.getElementById('add-todo');
+
+    this.updateGreeting = this.updateGreeting.bind(this);
+  }
+
+  updateGreeting(hour) {
+    const greeting = getTimeOfDay(hour);
+    if (greeting !== this.currentTimeOfDay) {
+      document.getElementById('time-of-day').textContent = greeting;
+    }
   }
 
   updateTime() {
@@ -42,6 +53,7 @@ class App {
 
     const now = new Date();
     const hours = now.getHours();
+    this.updateGreeting(hours);
     const minutes = padTime(now.getMinutes());
 
     this.timeElement.textContent = this.timeFormatElement.checked
