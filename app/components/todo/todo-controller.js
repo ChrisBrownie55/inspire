@@ -46,13 +46,14 @@ export default class TodoController {
   }
 
   async addTodo(input) {
-    if (input.value === '') {
+    const value = input.value.trim();
+    if (value === '') {
       const toasts = document.getElementById('toasts');
       toasts.innerHTML += `<toast-message>You cannot create an empty Todo.</toast-message>`;
       return;
     }
     await todoService.addTodo({
-      description: input.value
+      description: value
     });
     input.value = '';
     getTodos();

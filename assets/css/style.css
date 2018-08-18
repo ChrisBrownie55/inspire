@@ -208,6 +208,7 @@ main > * {
   font-size: 1.3rem;
   transform: translateY(0.1rem);
   background: url(../cog.svg);
+  background-repeat: no-repeat;
   color: transparent;
   transition: transform 0.2s;
   transform-origin: center;
