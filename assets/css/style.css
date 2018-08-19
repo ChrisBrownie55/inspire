@@ -216,8 +216,8 @@ main > * {
   outline: none;
 }
 .options > summary::-webkit-details-marker {
-  font-size: 1.3rem;
-  transform: translateY(0.1rem);
+  font-size: 1.5rem;
+  transform: translateY(0.15rem);
   background: url(../cog.svg);
   background-repeat: no-repeat;
   color: transparent;
@@ -228,12 +228,13 @@ main > * {
   margin-bottom: 0.65rem;
 }
 .options[open] > summary::-webkit-details-marker {
-  transform: translateY(0.1rem) rotate(45deg);
+  transform: translateY(0.15rem) rotate(45deg);
 }
 
 .options {
   border-radius: 0.2rem;
   padding: 0.8rem;
+  z-index: 4;
 }
 .options[open] {
   transition: background-color 0.2s;
