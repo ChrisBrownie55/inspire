@@ -30,6 +30,11 @@ const wiIcons = {
 };
 
 export default class WeatherService {
+  constructor() {
+    this.retryCount = 0;
+    this.retryMax = 5;
+  }
+
   getIcon(iconText) {
     return wiIcons[iconText];
   }
@@ -45,16 +50,27 @@ export default class WeatherService {
       return weather.data;
     }
 
-    return weatherApi().then(res => {
-      localStorage.setItem(
-        'weather',
-        JSON.stringify({
-          data: res.data,
-          time: Date.now()
-        })
-      );
+    return weatherApi()
+      .then(res => {
+        localStorage.setItem(
+          'weather',
+          JSON.stringify({
+            data: res.data,
+            time: Date.now()
+          })
+        );
 
-      return res.data;
-    });
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+        if (++this.retryCount > this.retryMax) {
+          document.getElementById(
+            'toasts'
+          ).innerHTML += `<toast-message>Unable to load quote.</toast-message>`;
+          return (this.retryCount = 0);
+        }
+        return this.getQuote();
+      });
   }
 }

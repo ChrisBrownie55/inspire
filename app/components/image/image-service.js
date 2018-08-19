@@ -8,14 +8,26 @@ const imgApi = axios.create({
 });
 
 export default class ImageService {
+  constructor() {
+    this.retryCount = 0;
+    this.retryMax = 5;
+  }
+
   getImage() {
     return imgApi()
       .then(
-        res => (
-          console.log('getImage:', res.data),
+        res =>
           res.data.images[Math.floor(Math.random() * res.data.images.length)]
-        )
       )
-      .catch(error => (console.error(error), this.getImage()));
+      .catch(error => {
+        console.error(error);
+        if (++this.retryCount > this.retryMax) {
+          document.getElementById(
+            'toasts'
+          ).innerHTML += `<toast-message>Unable to load background image.</toast-message>`;
+          return (this.retryCount = 0);
+        }
+        return this.getImage();
+      });
   }
 }

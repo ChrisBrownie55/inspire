@@ -14,6 +14,9 @@ function removeAllChildren(node) {
 }
 
 function draw(imageData) {
+  if (!imageData) {
+    return app.classList.remove('loading');
+  }
   const image = new Image();
   const hdImage = new Image();
 

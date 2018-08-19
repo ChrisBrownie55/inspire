@@ -10,8 +10,6 @@ async function getTodos() {
 }
 
 function draw(todos) {
-  console.log('draw:', todos);
-
   let toBeCompleted = 0;
 
   todosContainer.innerHTML = todos

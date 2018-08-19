@@ -10,23 +10,34 @@ function logError(error) {
 let todoList = [];
 
 export default class TodoService {
+  constructor() {
+    this.retryCount = 0;
+    this.retryMax = 5;
+  }
+
   getTodos() {
     return todoApi
       .get('')
-      .then(
-        res => (
-          console.log('getTodos:', res.data),
-          (todoList = res.data.data),
-          res.data
-        )
-      )
-      .catch(logError);
+      .then(res => ((todoList = res.data.data), res.data))
+      .catch(error => {
+        logError(error);
+        if (++this.retryCount > this.retryMax) {
+          document.getElementById(
+            'toasts'
+          ).innerHTML += `<toast-message>Unable to load Todos.</toast-message>`;
+          return (this.retryCount = 0);
+        }
+        document.getElementById(
+          'toasts'
+        ).innerHTML += `<toast-message>Trying to get Todos.</toast-message>`;
+        return this.getTodos();
+      });
   }
 
   addTodo(todo) {
     return todoApi
       .post('', todo)
-      .then(res => (console.log('addTodo:', res.data), res.data))
+      .then(res => res.data)
       .catch(logError);
   }
 
@@ -41,13 +52,11 @@ export default class TodoService {
         ...todo,
         completed: !todo.completed
       })
-      .then(res => (console.log('toggleTodoStatus:', res.data), res.data))
+      .then(res => res.data)
       .catch(logError);
   }
 
   removeTodo(todoId) {
-    return todoApi
-      .delete(todoId)
-      .then(res => (console.log('removeTodo:', res.data), res.data));
+    return todoApi.delete(todoId).then(res => res.data);
   }
 }

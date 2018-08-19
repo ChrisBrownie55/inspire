@@ -9,9 +9,23 @@ const quoteApi = axios.create({
 });
 
 export default class QuoteService {
+  constructor() {
+    this.retryCount = 0;
+    this.retryMax = 5;
+  }
+
   getQuote() {
-    return quoteApi().then(
-      res => (console.log('getQuote:', res.data), res.data)
-    );
+    return quoteApi()
+      .then(res => res.data)
+      .catch(error => {
+        console.error(error);
+        if (++this.retryCount > this.retryMax) {
+          document.getElementById(
+            'toasts'
+          ).innerHTML += `<toast-message>Unable to load quote.</toast-message>`;
+          return (this.retryCount = 0);
+        }
+        return this.getQuote();
+      });
   }
 }
