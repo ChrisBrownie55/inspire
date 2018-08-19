@@ -67,7 +67,7 @@ class App {
 
   toggleFahrenheit({ checked }) {
     localStorage.setItem('fahrenheit', checked);
-    this.controllers.weather.getWeather();
+    this.controllers.weather.toggleFahrenheit();
   }
   toggleTimeFormat({ checked }) {
     localStorage.setItem('24hr', checked);

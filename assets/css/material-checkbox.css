@@ -74,6 +74,6 @@
   border: solid 2px transparent;
   border-left: none;
   border-top: none;
-  -webkit-transform: translate(0.385em, 0.2em) rotate(45deg);
-  transform: translate(0.385em, 0.2em) rotate(45deg);
+  -webkit-transform: translate(0.385em, 0.15em) rotate(45deg);
+  transform: translate(0.385em, 0.15em) rotate(45deg);
 }
