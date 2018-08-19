@@ -235,6 +235,19 @@ main > * {
   transition: background-color 0.2s;
   background-color: rgba(0, 0, 0, 0.75);
 }
+.options[open] > *:nth-child(n + 1) {
+  margin-bottom: 0.5rem;
+}
+
+.settings-button {
+  background-color: #357edd;
+  color: white;
+  border: none;
+  border-radius: 0.1rem;
+  padding: 0.25rem 0.5rem;
+  display: block;
+  cursor: pointer;
+}
 
 @media (max-width: 800px) {
   html {

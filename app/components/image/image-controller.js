@@ -14,6 +14,7 @@ function removeAllChildren(node) {
 }
 
 function draw(imageData) {
+  app.classList.add('loading');
   if (!imageData) {
     return app.classList.remove('loading');
   }

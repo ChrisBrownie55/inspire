@@ -7,19 +7,22 @@ const quoteContainer = document.getElementById('quote');
 const truncate = (string, length) =>
   string.length > length ? string.slice(0, length - 3) + '...' : string;
 
+const removeTags = htmlString => htmlString.replace(/<[/]?.+?>/g, '');
+
 function convertHtmlEntityToString(html) {
   const domNode = document.createElement('div');
   domNode.innerHTML = html;
   return domNode.textContent;
 }
 
-function draw(quoteData) {
-  quoteContainer.innerHTML = `"${truncate(quoteData.quote, 100)}"`;
-  quoteContainer.setAttribute('data-author', quoteData.author);
+function draw([{ content, title }]) {
+  content = removeTags(content).trim();
+  quoteContainer.innerHTML = `"${truncate(content, 100)}"`;
+  quoteContainer.setAttribute('data-author', title);
 
   quoteContainer.setAttribute(
-    'title',
-    convertHtmlEntityToString(quoteData.quote)
+    'title', // tooltip
+    convertHtmlEntityToString(content)
   );
 }
 

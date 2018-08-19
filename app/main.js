@@ -5,7 +5,7 @@ import ImageController from './components/image/image-controller.js';
 import './components/toast-message.js';
 
 const getTimeOfDay = hour =>
-  hour < 12 ? 'morning' : hour < 5 ? 'afternoon' : 'evening';
+  hour < 12 ? 'morning' : hour < 12 + 5 ? 'afternoon' : 'evening';
 
 class App {
   constructor() {
