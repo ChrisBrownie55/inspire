@@ -6,6 +6,9 @@ const imgApi = axios.create({
   baseURL: apiUrl,
   timeout: 3000
 });
+const images = [];
+
+const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
 
 export default class ImageService {
   constructor() {
@@ -14,11 +17,14 @@ export default class ImageService {
   }
 
   getImage() {
+    if (images.length > 0) {
+      return getRandomItem(images);
+    }
     return imgApi()
-      .then(
-        res =>
-          res.data.images[Math.floor(Math.random() * res.data.images.length)]
-      )
+      .then(res => {
+        images.push(...res.data.images);
+        return getRandomItem(images);
+      })
       .catch(error => {
         console.error(error);
         if (++this.retryCount > this.retryMax) {
