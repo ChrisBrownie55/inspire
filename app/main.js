@@ -27,6 +27,10 @@ class App {
     document.getElementById('24hr').checked =
       localStorage.getItem('24hr') === 'true';
 
+    document.getElementById('blur').checked =
+      localStorage.getItem('blur') === 'true';
+    this.controllers.image.setBlur(document.getElementById('blur').checked);
+
     this.updateTime = this.updateTime.bind(this);
     this.updateTime();
 
@@ -72,6 +76,10 @@ class App {
   toggleTimeFormat({ checked }) {
     localStorage.setItem('24hr', checked);
     this.updateTime();
+  }
+  toggleBlur({ checked }) {
+    localStorage.setItem('blur', checked);
+    this.controllers.image.setBlur(checked);
   }
 }
 

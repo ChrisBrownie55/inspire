@@ -52,6 +52,10 @@ body {
   height: calc(100vh + 8px);
   object-fit: cover;
   z-index: -1;
+  filter: brightness(40%);
+}
+
+#background-image-container.blur > img {
   filter: blur(4px) brightness(40%);
 }
 

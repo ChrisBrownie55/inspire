@@ -44,4 +44,14 @@ export default class ImageController {
   async getImage() {
     draw(await imageService.getImage());
   }
+
+  setBlur(on) {
+    const imageContainer = document.getElementById(
+      'background-image-container'
+    );
+    if (on) {
+      return imageContainer.classList.add('blur');
+    }
+    return imageContainer.classList.remove('blur');
+  }
 }

@@ -28,6 +28,10 @@
 					<input id='fahrenheit' type='checkbox' onchange='app.toggleFahrenheit(this)' />
 					<label for='fahrenheit'>Fahrenheit</label>
 				</div>
+				<div class='material checkbox'>
+					<input id='blur' type='checkbox' onchange='app.toggleBlur(this)' />
+					<label for='blur'>Background Blur</label>
+				</div>
 				<button class='settings-button' onclick='app.controllers.image.getImage()'>Cycle Background</button>
 				<button class='settings-button' onclick='app.controllers.quote.getQuote()'>Cycle Quote</button>
 			</details>
