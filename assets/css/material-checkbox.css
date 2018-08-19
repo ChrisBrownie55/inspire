@@ -1,6 +1,7 @@
 .material.checkbox {
   display: flex;
   position: relative;
+  --theme-color: #1976d2;
 }
 .material.checkbox input[type='checkbox'] {
   margin: 0;
@@ -25,15 +26,15 @@
   outline: none;
 }
 .material.checkbox input[type='checkbox']:checked {
-  background-color: #00b7ff;
+  background-color: var(--theme-color);
 }
 .material.checkbox.todo input[type='checkbox']:checked + label {
   text-decoration: line-through;
   opacity: 0.5;
 }
 .material.checkbox input[type='checkbox']:checked + label::before {
-  background-color: #00b7ff;
-  border-color: #00b7ff;
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
 }
 .material.checkbox input[type='checkbox']:checked + label::after {
   border-color: white;
@@ -47,7 +48,7 @@
   transition: opacity 0s, transform 0s, -webkit-transform 0s;
 }
 .material.checkbox input[type='checkbox']:active + label::before {
-  border-color: #00b7ff;
+  border-color: var(--theme-color);
 }
 .material.checkbox label {
   cursor: pointer;
