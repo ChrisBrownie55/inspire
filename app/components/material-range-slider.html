@@ -49,12 +49,13 @@
           cursor: pointer;
         }
         :host > thumb::after {
-          content: attr(data-value) '%';
+          content: attr(data-value);
           text-align: center;
           display: block;
+          width: 2em;
           height: 1.5em;
           font-size: 0.75em;
-          transform: translate(-0.25em, -5.75em);
+          transform: translate(calc(-0.1em - 15%), -5.75em);
           color: white;
         }
         :host > thumb::before {
