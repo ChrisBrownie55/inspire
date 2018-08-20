@@ -54,4 +54,11 @@ export default class ImageController {
     }
     return imageContainer.classList.remove('blur');
   }
+
+  setBrightness(value) {
+    const imageContainer = document.getElementById(
+      'background-image-container'
+    );
+    imageContainer.style.setProperty('--brightness', value);
+  }
 }

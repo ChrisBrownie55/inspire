@@ -1,0 +1,218 @@
+<style>
+  material-slider {
+    width: 10rem;
+    height: 2em;
+    display: block;
+    --color: #1976d2;
+  }
+</style>
+<script>
+  class MaterialSlider extends HTMLElement {
+    constructor() {
+      super();
+      this.onDrag = this.onDrag.bind(this);
+      this.startDrag = this.startDrag.bind(this);
+      this.endDrag = this.endDrag.bind(this);
+      this.updateThumb = this.updateThumb.bind(this);
+
+      this.shadow = this.attachShadow({
+        mode: "closed"
+      });
+      this.shadow.innerHTML = `
+      <track></track>
+      <thumb></thumb>
+      <style>
+        :host {
+          position: relative;
+          width: auto;
+        }
+        :host(:focus) {
+          outline: none;
+        }
+        :host > track {
+          width: 100%;
+          position: absolute;
+          left: 0;
+          top: calc(50% - 0.125em);
+          height: 0.25em;
+          background-color: var(--color);
+          opacity: 0.5;
+        }
+        :host > thumb {
+          width: 1em;
+          height: 1em;
+          background-color: var(--color);
+          position: absolute;
+          left: 0;
+          top: calc(50% - 0.5em);
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        :host > thumb::after {
+          content: attr(data-value) '%';
+          text-align: center;
+          display: block;
+          height: 1.5em;
+          font-size: 0.75em;
+          transform: translate(-0.25em, -5.75em);
+          color: white;
+        }
+        :host > thumb::before {
+          content: '';
+          display: block;
+          width: 2em;
+          height: 2em;
+          border-radius: 50%;
+          border-bottom-left-radius: 0;
+          transform: translate(-0.5em, -2.75em) rotate(-45deg);
+          background-color: var(--color);
+          transition: opacity 0.15s;
+        }
+        :host > thumb::before,
+        :host > thumb::after {
+          cursor: default;
+          pointer-events: none;
+          opacity: 0;
+        }
+        :host > thumb:active::before,
+        :host > thumb:active::after,
+        :host > track:active + thumb::before,
+        :host > track:active + thumb::after {
+          opacity: 1;
+        }
+      </style>
+      <style id='translate-style'>
+      </style>
+    `;
+      this.innerHTML = "";
+
+      this.track = this.shadow.querySelector("track");
+      this.thumb = this.shadow.querySelector("thumb");
+      this.thumbTranslateStyle = this.shadow.getElementById("translate-style");
+
+      this.position =
+        this.rect.width * (parseFloat(this.getAttribute("value")) / 100) || 0;
+      this.min = this.min || 0;
+      this.max = this.max || 100;
+
+      this.dragging = false;
+      this.thumb.addEventListener("mousedown", this.startDrag);
+      this.track.addEventListener("mousedown", this.onDrag);
+      window.thumb = this.thumb;
+    }
+
+    startDrag() {
+      this.dragging = true;
+      document.addEventListener("mousemove", this.onDrag);
+      document.addEventListener("mouseup", this.endDrag);
+    };
+    onDrag(event) {
+      const relativeX = event.clientX - this.rect.x;
+      if (relativeX < 0) {
+        this.position = 0;
+      } else if (relativeX > this.rect.width) {
+        this.position = this.rect.width;
+      } else {
+        this.position = relativeX;
+      }
+    };
+    endDrag() {
+      this.dragging = false;
+      document.removeEventListener("mousemove", this.onDrag);
+      document.removeEventListener("mouseup", this.endDrag);
+    };
+
+    get value() {
+      return this.getAttribute("value");
+    }
+    set value(val) {
+      this.position = (this.rect.width || 1) * (val / 100);
+    }
+
+    get position() {
+      return this._position;
+    }
+    set position(val) {
+      console.log(val);
+      const newValue = Math.floor(val / (this.rect.width || 1) * 100) || 0;
+      const cancelled = !this.dispatchEvent(new Event('change', { bubbles: true }))
+      if (cancelled) {
+        return;
+      }
+
+      this.thumb.setAttribute('data-value', newValue);
+
+      this._position = val;
+      this.setAttribute("value", newValue);
+      if (this.thumb) {
+        this.updateThumb();
+      }
+    }
+
+    updateThumb() {
+      this.thumbTranslateStyle.innerHTML = `
+      :host > thumb {
+        transform: translateX(${this.thumbPosition}px);
+      }`;
+    };
+
+    get min() {
+      return parseFloat(this.getAttribute("min"));
+    }
+    set min(val) {
+      this.setAttribute("min", val.toString());
+    }
+
+    get max() {
+      return parseFloat(this.getAttribute("max"));
+    }
+    set max(val) {
+      this.setAttribute("max", val.toString());
+    }
+
+    get rect() {
+      return this.getBoundingClientRect();
+    }
+    get thumbSize() {
+      if (!this.thumb) {
+        return 0;
+      }
+      return this.thumb.getBoundingClientRect().width;
+    }
+    get thumbPosition() {
+      return this.position - this.thumbSize / 2;
+    }
+
+    static get observedAttributes() {
+      return ["disabled"];
+    }
+
+    get disabled() {
+      return this.hasAttribute("disabled");
+    }
+
+    set disabled(val) {
+      if (val) {
+        this.setAttribute("disabled", "");
+      } else {
+        this.removeAttribute("disabled");
+      }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (this.disabled) {
+        this.setAttribute("tabindex", "-1");
+        this.setAttribute("aria-disabled", "true");
+      } else {
+        this.setAttribute("tabindex", "0");
+        this.setAttribute("aria-disabled", "false");
+      }
+    }
+
+    connectedCallback() {
+      this.attributeChangedCallback();
+    }
+  }
+
+  window.customElements.define("material-slider", MaterialSlider);
+</script>

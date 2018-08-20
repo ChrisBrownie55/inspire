@@ -9,12 +9,6 @@ const getTimeOfDay = hour =>
 
 class App {
   constructor() {
-    this.controllers = {
-      weather: new WeatherController(),
-      todos: new TodoController(),
-      quote: new QuoteController(),
-      image: new ImageController()
-    };
     this.timeFormatElement = document.getElementById('24hr');
     this.timeElement = document.getElementById('time');
 
@@ -29,7 +23,9 @@ class App {
 
     document.getElementById('blur').checked =
       localStorage.getItem('blur') === 'true';
-    this.controllers.image.setBlur(document.getElementById('blur').checked);
+
+    document.getElementById('brightness').value =
+      localStorage.getItem('brightness') || '50';
 
     this.updateTime = this.updateTime.bind(this);
     this.updateTime();
@@ -38,6 +34,17 @@ class App {
     this.addTodo = document.getElementById('add-todo');
 
     this.updateGreeting = this.updateGreeting.bind(this);
+
+    this.controllers = {
+      weather: new WeatherController(),
+      todos: new TodoController(),
+      quote: new QuoteController(),
+      image: new ImageController()
+    };
+    this.controllers.image.setBlur(document.getElementById('blur').checked);
+    this.controllers.image.setBrightness(
+      document.getElementById('brightness').value
+    );
   }
 
   updateGreeting(hour) {
@@ -80,6 +87,10 @@ class App {
   toggleBlur({ checked }) {
     localStorage.setItem('blur', checked);
     this.controllers.image.setBlur(checked);
+  }
+  changeBrightness(value) {
+    localStorage.setItem('brightness', value);
+    this.controllers.image.setBrightness(parseInt(value));
   }
 }
 

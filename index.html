@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/css/toast.css" />
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css" />
+	<link rel="import" href="app/components/material-range-slider.html">
 </head>
 
 <body id="body">
@@ -18,7 +19,7 @@
 		<div id='background-image-container'></div>
 
 		<header>
-			<details class='options'>
+			<details class='options' ontoggle='document.getElementById("brightness").value = document.getElementById("brightness").value'>
 				<summary>Settings</summary>
 				<div class='material checkbox'>
 					<input id='24hr' type='checkbox' onchange='app.toggleTimeFormat(this)' />
@@ -32,6 +33,8 @@
 					<input id='blur' type='checkbox' onchange='app.toggleBlur(this)' />
 					<label for='blur'>Background Blur</label>
 				</div>
+				<material-slider id='brightness' onchange='app.changeBrightness && app.changeBrightness(event.target.value)' min='0' max='100'
+				 value='50'></material-slider>
 				<button class='settings-button' onclick='app.controllers.image.getImage()'>Cycle Background</button>
 				<button class='settings-button' onclick='app.controllers.quote.getQuote()'>Cycle Quote</button>
 			</details>
