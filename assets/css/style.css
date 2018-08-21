@@ -23,9 +23,6 @@ body {
 #app.loading + .loader {
   opacity: 1;
 }
-#app:not(.loading) + .loader {
-  animation: none;
-}
 .loader {
   position: absolute;
   top: calc(50% - calc(2.5rem + 60px));
