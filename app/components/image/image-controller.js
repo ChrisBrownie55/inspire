@@ -26,14 +26,14 @@ function draw(imageData) {
     backgroundImageContainer.appendChild(image);
     app.classList.remove('loading');
   };
-  image.src = imageData.url;
+  image.src = imageData.webformatURL;
 
   hdImage.onload = () => {
     delete image.onload;
     removeAllChildren(backgroundImageContainer);
     backgroundImageContainer.appendChild(hdImage);
   };
-  hdImage.src = imageData.large_url;
+  hdImage.src = imageData.largeImageURL;
 }
 
 export default class ImageController {
