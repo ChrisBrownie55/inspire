@@ -8,8 +8,8 @@ const imgApi = axios.create({
   baseURL: apiUrl,
   timeout: 3000
 });
-const images = [];
 
+const images = [];
 const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
 
 export default class ImageService {
