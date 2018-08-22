@@ -30,6 +30,9 @@ function draw(imageData) {
 
   hdImage.onload = () => {
     delete image.onload;
+    if (backgroundImageContainer.children[0].src !== image.src) {
+      return;
+    }
     removeAllChildren(backgroundImageContainer);
     backgroundImageContainer.appendChild(hdImage);
   };
